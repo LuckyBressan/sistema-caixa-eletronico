@@ -90,6 +90,13 @@ class ModelCaixaEletronico {
 
         Log::gravaLog('Ínicio da operação de saque.');
 
+        if($valor <= 0) {
+            throw new ExceptionCaixaEletronico(
+                "Valor de saque é inválido, necessário informar um valor maior que zero.\n" .
+                "Você pode sacar R$" . $this->totalCaixa()
+            );
+        }
+
         if($valor > $this->totalCaixa()) {
             throw new ExceptionCaixaEletronico(
                 "Não é possível sacar, pois o valor do saque é maior do que está em saldo.\n" .
